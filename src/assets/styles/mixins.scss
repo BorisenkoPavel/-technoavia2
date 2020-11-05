@@ -1,0 +1,11 @@
+@mixin scr__tab {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin scr__mob {
+  @media (max-width: 769px) {
+    @content;
+  }
+}
