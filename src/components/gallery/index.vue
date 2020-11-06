@@ -100,7 +100,6 @@ export default {
       }
       try {
         await this.fetchPhotos(data)
-        console.log(date)
         await this.fetchBackground(date)
       } catch (e) {
         console.error('error', e)

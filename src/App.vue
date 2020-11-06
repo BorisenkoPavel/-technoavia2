@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
-    <gallery msg="Welcome to Your Vue.js App"/>
+  <div id="app" :style="`background-image: url(${getBackground})`">
+    <gallery />
   </div>
 </template>
 
 <script>
 import gallery from './components/gallery'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -15,9 +15,15 @@ export default {
   },
   async mounted () {
     await this.fetchRovers()
+    let date = new Date()
+    date = this.$moment(date).format('YYYY-MM-DD')
+    this.fetchBackground(date)
   },
   methods: {
-    ...mapActions(['fetchRovers'])
+    ...mapActions(['fetchRovers', 'fetchBackground'])
+  },
+  computed: {
+    ...mapGetters(['getBackground'])
   }
 }
 </script>
@@ -35,7 +41,9 @@ html, body, #app {
 }
 
 #app {
-  background: url("~@/assets/bg.jpg") no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;

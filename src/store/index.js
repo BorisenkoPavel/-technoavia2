@@ -34,9 +34,11 @@ export default new Vuex.Store({
       commit('setPhotos', photos)
     },
     async fetchBackground({commit, state}, date) {
-      const response = await fetch(`https://api.nasa.gov/planetary/apod&api_key=${state.api_key}`)
+      const response = await fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${state.api_key}`)
       const background = await response.json()
-      commit('setBackground', background)
+      if (background.url) {
+        commit('setBackground', background.url)
+      }
     }
   },
   getters: {
@@ -45,6 +47,9 @@ export default new Vuex.Store({
     },
     getPhotos(state) {
       return state.photos
+    },
+    getBackground(state) {
+      return state.background
     }
   }
 })
